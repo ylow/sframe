@@ -2,7 +2,7 @@
 Visualization
 #############
 
-.. currentmodule:: turicreate
+.. currentmodule:: sframe
 
 Visualize data in various forms including scatter plots, heat maps, categorical heatmaps, box and whisker plots, columnwise summaries, histograms, and item frequency plots.
 

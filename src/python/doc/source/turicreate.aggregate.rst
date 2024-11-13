@@ -1,9 +1,9 @@
 :mod:`aggregate`
 =========================
 
-.. automodule:: turicreate.aggregate
+.. automodule:: sframe.aggregate
 
-.. currentmodule:: turicreate.aggregate
+.. currentmodule:: sframe.aggregate
 
 
 classifier metrics

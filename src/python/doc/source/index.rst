@@ -15,7 +15,7 @@ your app.
 * **Fast and Scalable:** Work with large datasets on a single machine
 * **Ready To Deploy:** Export models to Core ML for use in iOS, macOS, watchOS, and tvOS apps
 
-.. currentmodule:: turicreate
+.. currentmodule:: sframe
 
 Contents
 ========
@@ -23,10 +23,10 @@ Contents
 .. toctree::
     :maxdepth: 3
 
-    turicreate.data_structures.rst
+    sframe.data_structures.rst
 
 .. toctree::
     :maxdepth: 1
 
-    turicreate.visualization.rst
-    turicreate.utils.rst
+    sframe.visualization.rst
+    sframe.utils.rst

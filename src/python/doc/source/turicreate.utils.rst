@@ -5,7 +5,7 @@ Configuration
 Parameters and settings to optimize performance of Turi Create on various
 hardware.
 
-.. currentmodule:: turicreate.config
+.. currentmodule:: sframe.config
 
 .. autosummary::
   :toctree: generated/

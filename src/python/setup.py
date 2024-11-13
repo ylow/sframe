@@ -12,7 +12,7 @@ from setuptools import setup, find_packages, Extension
 from setuptools.dist import Distribution
 from setuptools.command.install import install
 
-PACKAGE_NAME = "turicreate"
+PACKAGE_NAME = "sframe"
 VERSION = "6.4.2"  # {{VERSION_STRING}}
 # pkgs not needed for minimal pkg
 NON_MINIMAL_LIST = [
@@ -175,18 +175,18 @@ if __name__ == "__main__":
     ]
 
     setup(
-        name="turicreate",
+        name="sframe",
         version=VERSION,
         # This distribution contains platform-specific C++ libraries, but they are not
         # built with distutils. So we must create a dummy Extension object so when we
         # create a binary file it knows to make it platform-specific.
-        ext_modules=[Extension("turicreate.__dummy", sources=["dummy.c"])],
+        ext_modules=[Extension("sframe.__dummy", sources=["dummy.c"])],
         author="Apple Inc.",
         author_email="turi-create@group.apple.com",
         cmdclass=dict(install=InstallEngine),
         distclass=BinaryDistribution,
         package_data={
-            "turicreate": [
+            "sframe": [
                 "_cython/*.so",
                 "_cython/*.pyd",
                 "*.so",
@@ -220,9 +220,9 @@ if __name__ == "__main__":
             ]
         },
         packages=find_packages(exclude=["test"]),
-        url="https://github.com/apple/turicreate",
+        url="https://github.com/ylow/sframe",
         license="LICENSE.txt",
-        description="Turi Create simplifies the development of custom machine learning models.",
+        description="SFrame is a scalable lazy-evaluated dataframe datastructure that automatically scales to out-of-core.",
         long_description=long_description,
         classifiers=classifiers,
         install_requires=install_requires,

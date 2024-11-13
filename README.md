@@ -3,9 +3,9 @@ Quick Links: [Installation](#supported-platforms) | [Documentation](#documentati
 [<img align="right" src="https://docs-assets.developer.apple.com/turicreate/turi-dog.svg" alt="Turi Create" width="100">](#)
 
 
-# XFrame
+# SFrame
 
-The XFrame is a scalable column compressed disk-backed dataframe optimized for 
+The SFrame is a scalable column compressed disk-backed dataframe optimized for 
 machine learning and data science needs.  It supports for strictly typed
 columns (int, float, str, datetime), weakly typed columns (schema free lists,
 dictionaries) and has uniform support for missing data.
@@ -19,14 +19,12 @@ investments were made.
 
 However, I strongly believe that this is still one of most performant and 
 useable data manipulation libraries in Python, and I have wanting to resurrect
-this project. However as the name SFrame and Turi Create were taken, we renamed
-it from SFrame to XFrame.
+this project. 
 
 Currently, the fork is in an early stage. What has been done:
 
  - Removed all ML toolkits
  - Removed the SGraph datastructure
- - Renamed SFrame to XFrame
  
 But there are many many places for improvement and modernization.
 
@@ -71,6 +69,6 @@ Current maintainers are:
 Supported Platforms
 -------------------
 
-XFrame current supports only macOS 15+ (Sequoia) because that is what I have.
+SFrame current supports only macOS 15+ (Sequoia) because that is what I have.
 Linux and Windows should be supported but untestsed.
 

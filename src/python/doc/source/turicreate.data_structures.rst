@@ -3,10 +3,10 @@
 #################
 Data
 #################
-.. automodule:: turicreate.data_structures
+.. automodule:: sframe.data_structures
   :members:
 
-.. currentmodule:: turicreate
+.. currentmodule:: sframe
 
 
 Data Structures

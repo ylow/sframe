@@ -1,8 +1,8 @@
 include *.txt
 include README.rst
-recursive-include turicreate *.so *.so.1 *.dylib *.pyd *.dll pylambda_worker  *.exe
+recursive-include sframe *.so *.so.1 *.dylib *.pyd *.dll pylambda_worker  *.exe
 recursive-include *.pyd *.so
-recursive-include turicreate/canvas *.html *.css *.js *.ico *.otf *.eot *.svg *.ttf *.woff *LICENSE* *.png
-recursive-include turicreate/deploy *.jar
-recursive-include turicreate/distributed *.jar
-recursive-include turicreate/toolkits/deeplearning *.conf
+recursive-include sframe/canvas *.html *.css *.js *.ico *.otf *.eot *.svg *.ttf *.woff *LICENSE* *.png
+recursive-include sframe/deploy *.jar
+recursive-include sframe/distributed *.jar
+recursive-include sframe/toolkits/deeplearning *.conf

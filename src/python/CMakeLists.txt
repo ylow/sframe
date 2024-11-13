@@ -1,6 +1,6 @@
 project(Turi)
 
-add_subdirectory(turicreate)
+add_subdirectory(sframe)
 
 # With CMake, a clean separation can be made between the source tree and the
 # build tree.  When all source is compiled, as with pure C/C++, the source is
@@ -18,10 +18,10 @@ make_copy_target(
   ${CMAKE_CURRENT_SOURCE_DIR}/setup.cfg
   ${CMAKE_CURRENT_SOURCE_DIR}/setup.py
   DIRECTORIES
-  ${CMAKE_CURRENT_SOURCE_DIR}/turicreate)
+  ${CMAKE_CURRENT_SOURCE_DIR}/sframe)
 
 add_custom_target(clean_python)
-add_dependencies(clean_python clean_turicreate_binaries clean_cython)
+add_dependencies(clean_python clean_sframe_binaries clean_cython)
 
 add_custom_command(
   COMMENT "make clean python directory"

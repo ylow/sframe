@@ -25,12 +25,12 @@ Installation
 ------------
 
 Please see detailed instructions at the project’s
-`homepage <https://github.com/apple/turicreate/blob/master/README.md#installation>`__.
+`homepage <https://github.com/apple/sframe/blob/master/README.md#installation>`__.
 
 Documentation
 -------------
 
 The package `User
-Guide <https://apple.github.io/turicreate/docs/userguide>`__ and `API
-Docs <https://apple.github.io/turicreate/docs/api>`__ contain more
+Guide <https://apple.github.io/sframe/docs/userguide>`__ and `API
+Docs <https://apple.github.io/sframe/docs/api>`__ contain more
 details on how to use Turi Create.

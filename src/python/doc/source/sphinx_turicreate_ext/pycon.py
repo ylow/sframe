@@ -13,7 +13,7 @@ def main():
     """
     source_lines = (line.rstrip() for line in sys.stdin)
     console = InteractiveInterpreter()
-    console.runsource("import turicreate")
+    console.runsource("import sframe")
     source = ""
     try:
         while True:

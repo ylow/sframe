@@ -3,5 +3,5 @@
 
 Load a previously saved Turi Create model.
 
-.. currentmodule:: turicreate
-.. autofunction:: turicreate.load_model
+.. currentmodule:: sframe
+.. autofunction:: sframe.load_model
