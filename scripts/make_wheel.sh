@@ -140,7 +140,7 @@ if [[ -n "${USE_DOCKER}" ]]; then
     rm -rf /build/deps/env
 
   # Run the tests inside Docker (14.04) if desired
-  # CentOS 6 is not capable of passing turicreate unit tests currently
+  # CentOS 6 is not capable of passing sframe unit tests currently
   if [[ -z $SKIP_TEST ]]; then
     # run the tests
     ./scripts/test_wheel.sh --docker-python${DOCKER_PYTHON}
@@ -240,12 +240,12 @@ mac_patch_rpath() {
   # PREFIX/lib/python2.7/site-packages/[module]
   # libpython2.7 will probably in PREFIX/lib
   # So for instance if I am in
-  # PREFIX/lib/python2.7/site-packages/turicreate/unity_server
+  # PREFIX/lib/python2.7/site-packages/sframe/unity_server
   # I need to add
   # ../../../ to the rpath (to make it to lib/)
   # But if I am in
   #
-  # PREFIX/lib/python2.7/site-packages/turicreate/something/somewhere
+  # PREFIX/lib/python2.7/site-packages/sframe/something/somewhere
   # I need to add
   # ../../../../ to the rpath
   for f in $flist; do
@@ -256,8 +256,8 @@ mac_patch_rpath() {
     # - The 3rd regex removes the last "filename" bit
     #
     # Example:
-    # Input: ./turicreate/cython/cy_ipc.so
-    # After 1st regex: turicreate/cython/cy_ipc.so
+    # Input: ./sframe/cython/cy_ipc.so
+    # After 1st regex: sframe/cython/cy_ipc.so
     # After 2nd regex: ../../cy_ipc.so
     # After 3rd regex: ../../
     relative=`echo $f | sed 's:\./::g' | sed 's:[^/]*/:../:g' | sed 's:[^/]*$::'`
@@ -278,7 +278,7 @@ function package_wheel() {
 
   # strip binaries
   if [[ ! $OSTYPE == darwin* ]]; then
-    cd ${WORKSPACE}/${build_type}/src/python/turicreate
+    cd ${WORKSPACE}/${build_type}/src/python/sframe
     BINARY_LIST=`find . -type f -exec file {} \; | grep x86 | cut -d: -f 1`
     echo "Stripping binaries: $BINARY_LIST"
 
@@ -312,30 +312,30 @@ function package_wheel() {
       local pkg_patch_ver=$(grep VERSION_STRING setup.py | cut -d " " -f3)
       pkg_patch_ver="${pkg_patch_ver//\"}${version_modifier}"
       if [[ "$(uname -s)" == "Darwin" ]] ; then
-        sed -i "" 's/^USE_MINIMAL = False$/USE_MINIMAL = True/g' turicreate/_deps/minimal_package.py
-        sed -i '' "s/\".*\"  # {{VERSION_STRING}}/\"${pkg_patch_ver}\"  # {{VERSION_STRING}}/g" turicreate/version_info.py setup.py
+        sed -i "" 's/^USE_MINIMAL = False$/USE_MINIMAL = True/g' sframe/_deps/minimal_package.py
+        sed -i '' "s/\".*\"  # {{VERSION_STRING}}/\"${pkg_patch_ver}\"  # {{VERSION_STRING}}/g" sframe/version_info.py setup.py
       else
-        sed -i 's/^USE_MINIMAL = False$/USE_MINIMAL = True/g' turicreate/_deps/minimal_package.py
-        sed -i "s/\".*\"  # {{VERSION_STRING}}/\"${pkg_patch_ver}\"  # {{VERSION_STRING}}/g" turicreate/version_info.py setup.py
+        sed -i 's/^USE_MINIMAL = False$/USE_MINIMAL = True/g' sframe/_deps/minimal_package.py
+        sed -i "s/\".*\"  # {{VERSION_STRING}}/\"${pkg_patch_ver}\"  # {{VERSION_STRING}}/g" sframe/version_info.py setup.py
       fi
     fi
 
-    # This produced a wheel starting with turicreate-${VERSION_NUMBER} under dist/
+    # This produced a wheel starting with sframe-${VERSION_NUMBER} under dist/
     if [[ "${is_minimal}" -eq 1 ]]; then
       "${PYTHON_EXECUTABLE}" setup.py -q "${dist_type}" install --minimal
       # restore the scene after packing; making it reentrant
       cp ${WORKSPACE}/src/python/setup.py setup.py
-      cp ${WORKSPACE}/src/python/turicreate/version_info.py turicreate/version.py
+      cp ${WORKSPACE}/src/python/sframe/version_info.py sframe/version.py
     else
       # full version
       "${PYTHON_EXECUTABLE}" setup.py -q "${dist_type}"
     fi
 
-    VERSION_NUMBER=`${PYTHON_EXECUTABLE} -c "from turicreate.version_info import version; print(version)"`
+    VERSION_NUMBER=`${PYTHON_EXECUTABLE} -c "from sframe.version_info import version; print(version)"`
 
     cd "${WORKSPACE}"
 
-    WHEEL_PATH=$(ls "${WORKSPACE}/${build_type}/src/python/dist/turicreate-${VERSION_NUMBER}"*.whl)
+    WHEEL_PATH=$(ls "${WORKSPACE}/${build_type}/src/python/dist/sframe-${VERSION_NUMBER}"*.whl)
 
     if [[ $OSTYPE == darwin* ]]; then
       # Change the platform tag embedded in the file name
@@ -356,7 +356,7 @@ function package_wheel() {
     else
       # Don't pick up -manylinux1 wheels, since those may have been created by a later step from a previous build.
       # Ignore those for now by selecting only -linux wheels.
-      WHEEL_PATH=`ls ${WORKSPACE}/${build_type}/src/python/dist/turicreate-${VERSION_NUMBER}*-linux*.whl`
+      WHEEL_PATH=`ls ${WORKSPACE}/${build_type}/src/python/dist/sframe-${VERSION_NUMBER}*-linux*.whl`
     fi
 
     # Set Python Language Version Number
@@ -379,9 +379,9 @@ function package_wheel() {
       # Install the wheel and do a smoke test
       unset PYTHONPATH
 
-      "$PIP_EXECUTABLE" uninstall -y turicreate
+      "$PIP_EXECUTABLE" uninstall -y sframe
       "$PIP_EXECUTABLE" install "${WHEEL_PATH}"
-      $PYTHON_EXECUTABLE -c "import turicreate; turicreate.SArray(range(100)).apply(lambda x: x)"
+      $PYTHON_EXECUTABLE -c "import sframe; sframe.SArray(range(100)).apply(lambda x: x)"
     fi
 
     # Done copy to the target directory
@@ -397,7 +397,7 @@ function package_wheel() {
 set_build_number() {
   # set the build number
   cd "${WORKSPACE}/${build_type}/src/python/"
-  sed -i -e "s/\".*\"  # {{BUILD_NUMBER}}/\"${BUILD_NUMBER}\"  # {{BUILD_NUMBER}}/g" turicreate/version_info.py
+  sed -i -e "s/\".*\"  # {{BUILD_NUMBER}}/\"${BUILD_NUMBER}\"  # {{BUILD_NUMBER}}/g" sframe/version_info.py
 }
 
 set_git_SHA() {
@@ -409,7 +409,7 @@ set_git_SHA() {
   fi
 
   cd "${WORKSPACE}/${build_type}/src/python/"
-  sed -i -e "s/\".*\"  # {{GIT_SHA}}/\"${GIT_SHA}\"  # {{GIT_SHA}}/g" turicreate/version_info.py
+  sed -i -e "s/\".*\"  # {{GIT_SHA}}/\"${GIT_SHA}\"  # {{GIT_SHA}}/g" sframe/version_info.py
 }
 
 # Here is the main function()
